@@ -15,7 +15,7 @@ class HtmlRenderer{
 
     /**
     * @param array $valuePairs  Obtained from $_POST.
-    * @param string $html Obtained from the view, that holds the $html-template with placeholders. 
+    * @param string $alias. The templating-system gets the html-template-file, if it exists in the fold and is called "*.heidt.php"
     */    
 
     function __construct($valuePairs, $alias){
