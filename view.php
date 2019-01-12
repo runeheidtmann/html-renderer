@@ -2,39 +2,18 @@
 
   include('HtmlRenderer.php');
 
+  // All templates must be named alias.heidt.php.
+  // In this case, we get the data from the $_POST.
+  // In other scenarios, we might get the data from a route and from some database.
+  
+  $templateAlias = $_POST['template'];
+ 
   // When object is created it prints the rendered page.
-  new HtmlRenderer(getHtmlTemplate());
+
+  new HtmlRenderer($_POST, $templateAlias);
   
 
-/**
- * Gives renderer html-template with placeholders to be replaced with userinputs.
- * 
- * Make sure to put the excact amount of placeholders that will be needed. 
- * Whilst the script will ignore any key-value-pairs in excess, placeholders in excess will not be ignored.
- * and if not replaced, the output will include placeholders like  {{placeholder_in_excess}}.
- *
- * Also make sure that your placeholders is named the same as the keys. Otherwise they will not be rendered.
- * 
- * It wil take a lot more logic for the script to count and ignore placeholders in excess.
- */ 
 
- function getHtmlTemplate(){
-
-    return '<!DOCTYPE html>
-    <html>
-      <head>
-        <title></title>
-      </head>
-      <body>
-        <p>
-          Hello {{first_name}} {{last_name}}!
-        </p>
-        <p>
-          I will call you tomorrow on this nummber: {{phone}}
-        </p>
-      </body>
-    </html>';
-}
 
 
 ?>

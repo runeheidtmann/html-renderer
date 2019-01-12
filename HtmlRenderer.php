@@ -18,9 +18,9 @@ class HtmlRenderer{
     * @param string $html Obtained from the view, that holds the $html-template with placeholders. 
     */    
 
-    function __construct($html){
+    function __construct($valuePairs, $alias){
         
-        echo $this->render_html($_POST,$html);
+        echo $this->render_html($valuePairs, $this->getHtmlTemplate($alias));
         
     }
 
@@ -34,14 +34,44 @@ class HtmlRenderer{
     function render_html($valuePairs, $html) {
         $regex = "!{{\s*(?P<key>[a-zA-Z0-9_-]+?)\s*}}!";
        
-        //takes 3 arguments. Regex, callback function, html with placeholders.
+        // takes 3 arguments. Regex, callback function, html with placeholders.
         return \preg_replace_callback($regex, 
        
-        //A callback that will be called and passed an array of matched elements in the subject string. The callback should return the replacement string.    
+        // A callback that will be called and passed an array of matched elements in the subject string. The callback should return the replacement string.
+        // For security, the user input is filtered with htmlentities. The implemented use of it converts all html-tags to text instead letting the browser run it.    
                 function($match) use($valuePairs){
-                    return $valuePairs[$match["key"]]; }
+                    return  htmlentities($valuePairs[$match["key"]]); }
                 ,$html);  
     }
+
+
+/**
+ * Gives renderer html-template with placeholders to be replaced with userinputs.
+ * 
+ * The function is looking up the alias in the templates folder. If found, it wil be rendered.
+ * 
+ * every html-template must be called "name.heidt.php" for it to work. (Just like in Laravel "name.blade.php")
+ * 
+ * Make sure to put the excact amount of placeholders that will be needed. 
+ * Whilst the script will ignore any key-value-pairs in excess, placeholders in excess will not be ignored.
+ * and if not replaced, the output will include placeholders like  {{placeholder_in_excess}}
+ * 
+ * It wil take a lot more logic for the script to count and ignore placeholders in excess.
+ */ 
+    function getHtmlTemplate($fileAlias){
+
+        $htmlFile = 'templates/'.$fileAlias.'.heidt.php';
+        $result;
+            
+            if(file_exists($htmlFile) ) {
+                // get contents of a file into a string
+                $handle = fopen($htmlFile, "r");
+                $result = fread($handle, filesize($htmlFile));                 
+                fclose($handle);      
+        }
+        return $result;
+    }
+    
     
     
 }
