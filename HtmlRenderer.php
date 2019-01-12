@@ -7,7 +7,7 @@
 *
 * @author   Rune Heidtmann
 * @version  0.0.2
-* @link     https://github.com/mariodian/bitfinex-api-php
+* @link     https://github.com/runeheidtmann/html-renderer
 */
 
 class HtmlRenderer{
