@@ -92,24 +92,3 @@ body {
   <p class="mt-5 mb-3 text-muted">af Rune Heidtmann 2019</p>
 </form>
 </body>
-</html>
-<!-- 
-<!DOCTYPE html>
-<html>
-<body>
-
-<p>Hvad fik du til jul?</p>
-
-<form method="post" action="view.php">
-    First Name: <input type="text" name="first_name"  ><br>
-    Last Name:<input type="text" name="last_name" ><br>
-    Phone: <input type="text" name="phone" ><br>
-    
-    <input type="submit" name="template" value="greetings">
-    <input type="submit" name="template" value="goodbye"><br>
-    
-
-</form>
-
-</body>
-</html> -->
